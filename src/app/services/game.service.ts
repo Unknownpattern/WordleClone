@@ -161,7 +161,9 @@ export class GameService {
   private gameOver(won: Boolean) {
     this.gameStatus = GameState.Finished;
     this.GameStatus.next(this.gameStatus);
-    const gameOverMessage = 'GAME OVER, ' + (won ? 'You Won!' : 'You lost...');
+    const gameOverMessage =
+      'GAME OVER, ' +
+      (won ? 'You Won!' : 'You lost... The word was ' + this.secretWord);
     this.messageSubject.next(gameOverMessage);
     console.log(gameOverMessage);
   }
