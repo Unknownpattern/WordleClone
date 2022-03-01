@@ -28,10 +28,12 @@ export class KeysComponent implements OnInit, OnDestroy {
     this.StateSub = this.gameService
       .getStatusObservable()
       .subscribe((LetterStateArr) => {
-        if (LetterStateArr) {
+        if (LetterStateArr && this.key.length === 1) {
           let state = LetterStateArr[this.key.charCodeAt(0) - 97];
           this.keyData.disabled = state.state === TileState.Disabled;
           this.state = state.state;
+        } else {
+          this.state = TileState.Untouched;
         }
       });
   }

@@ -91,6 +91,7 @@ export class GameService {
 
     if (this.verify()) {
       this.gameOver(true);
+      return;
     }
     this.rowIndex++;
     if (this.rowIndex === 6) {
