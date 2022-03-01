@@ -9,10 +9,10 @@ export class KeyboardService {
   constructor(private gameService: GameService) {}
   keyClicked(key: string): void {
     switch (key) {
-      case 'enter':
+      case 'Enter':
         this.gameService.EnterWord();
         break;
-      case 'delete':
+      case 'Delete':
         this.gameService.DeleteLetter();
         break;
 

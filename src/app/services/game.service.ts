@@ -76,26 +76,28 @@ export class GameService {
   }
 
   EnterWord(): void {
-    const currWord = this.boardState[this.rowIndex];
-    if (currWord.length !== 5) {
-      return;
-    }
+    if (this.gameStatus === GameState.Playing) {
+      const currWord = this.boardState[this.rowIndex];
+      if (currWord.length !== 5) {
+        return;
+      }
 
-    // if the current guessed word is a valid word
-    if (!GuessList.includes(currWord) && !WordList.includes(currWord)) {
-      console.log('Error, not in word list');
-      this.messageSubject.next('Error, not in word list');
-      // TODO: Error message
-      return;
-    }
+      // if the current guessed word is a valid word
+      if (!GuessList.includes(currWord) && !WordList.includes(currWord)) {
+        console.log('Error, not in word list');
+        this.messageSubject.next('Error, not in word list');
+        // TODO: Error message
+        return;
+      }
 
-    if (this.verify()) {
-      this.gameOver(true);
-      return;
-    }
-    this.rowIndex++;
-    if (this.rowIndex === 6) {
-      this.gameOver(false);
+      if (this.verify()) {
+        this.gameOver(true);
+        return;
+      }
+      this.rowIndex++;
+      if (this.rowIndex === 6) {
+        this.gameOver(false);
+      }
     }
   }
 
@@ -138,7 +140,13 @@ export class GameService {
         resArr[index] !== TileState.Correct &&
         (!secretWordArr.includes(letter) || !secretWordBank.includes(letter))
       ) {
-        this.letterState[letter.charCodeAt(0) - 97].state = TileState.Absent;
+        if (
+          this.letterState[letter.charCodeAt(0) - 97].state !==
+            TileState.Correct ||
+          this.letterState[letter.charCodeAt(0) - 97].state !==
+            TileState.Present
+        )
+          this.letterState[letter.charCodeAt(0) - 97].state = TileState.Absent;
         resArr[index] = TileState.Absent;
         allCorrect = false;
       }

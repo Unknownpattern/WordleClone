@@ -4257,6 +4257,7 @@ export const GuessList = [
   'crocs',
   'croft',
   'crogs',
+  'croix',
   'cromb',
   'crome',
   'cronk',
