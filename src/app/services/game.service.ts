@@ -30,7 +30,8 @@ export class GameService {
     this.NewGame();
   }
   NewGame(): void {
-    this.secretWord = WordList[Math.floor(Math.random() * WordList.length)];
+    //this.secretWord = WordList[Math.floor(Math.random() * WordList.length)];
+    this.secretWord = 'taunt';
     console.log(this.secretWord);
     this.rowIndex = 0;
     this.evaluations = [null, null, null, null, null, null];
@@ -119,7 +120,10 @@ export class GameService {
     });
 
     currWordArr.forEach((letter, index) => {
-      if (secretWordBank.includes(letter)) {
+      if (
+        resArr[index] !== TileState.Correct &&
+        secretWordBank.includes(letter)
+      ) {
         const letterIndex = secretWordBank.findIndex((ele) => {
           return ele === letter;
         });
@@ -127,7 +131,10 @@ export class GameService {
         this.letterState[letter.charCodeAt(0) - 97].state = TileState.Present;
         allCorrect = false;
         resArr[index] = TileState.Present;
-      } else if (!secretWordArr.includes(letter)) {
+      } else if (
+        resArr[index] !== TileState.Correct &&
+        (!secretWordArr.includes(letter) || !secretWordBank.includes(letter))
+      ) {
         this.letterState[letter.charCodeAt(0) - 97].state = TileState.Absent;
         resArr[index] = TileState.Absent;
         allCorrect = false;
