@@ -101,22 +101,37 @@ export class GameService {
     }
     let allCorrect = true;
     const secretWordArr = this.secretWord.split('');
+    const secretWordBank = this.secretWord.split('');
     const resArr: TileState[] = [];
 
     currWordArr.forEach((letter, index) => {
       if (secretWordArr[index] === letter) {
-        this.letterState[letter.charCodeAt(0) - 97].state = TileState.Correct;
+        const index = secretWordBank.findIndex((ele) => {
+          return ele === letter;
+        });
+        secretWordBank.splice(index, 1);
         resArr.push(TileState.Correct);
-      } else if (secretWordArr.includes(letter)) {
+      } else {
+        resArr.push(TileState.Absent);
+      }
+    });
+
+    currWordArr.forEach((letter, index) => {
+      if (secretWordBank.includes(letter)) {
+        const letterIndex = secretWordBank.findIndex((ele) => {
+          return ele === letter;
+        });
+        secretWordBank.splice(letterIndex, 1);
         this.letterState[letter.charCodeAt(0) - 97].state = TileState.Present;
         allCorrect = false;
-        resArr.push(TileState.Present);
-      } else {
+        resArr[index] = TileState.Present;
+      } else if (!secretWordArr.includes(letter)) {
         this.letterState[letter.charCodeAt(0) - 97].state = TileState.Absent;
-        resArr.push(TileState.Absent);
+        resArr[index] = TileState.Absent;
         allCorrect = false;
       }
     });
+
     this.evaluations[this.rowIndex] = resArr;
     this.LetterState.next(this.letterState);
     this.Evaluations.next(this.evaluations);
