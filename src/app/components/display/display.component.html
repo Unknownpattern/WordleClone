@@ -1,0 +1,12 @@
+<div class="container">
+  <div
+    *ngFor="let word of boardState$ | async; index as i; trackBy: trackByLevel1"
+    class="row"
+  >
+    <app-display-cell
+      *ngFor="let letter of word.split(''); index as j; trackBy: trackByLevel1"
+      [state]="evaluations[i][j]"
+      [letter]="letter"
+    ></app-display-cell>
+  </div>
+</div>

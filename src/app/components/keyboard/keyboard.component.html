@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <app-keys *ngFor="let key of KeyListRow1" [key]="key"></app-keys>
+  </div>
+  <div class="row">
+    <app-keys *ngFor="let key of KeyListRow2" [key]="key"></app-keys>
+  </div>
+  <div class="row">
+    <app-keys [key]="'enter'"></app-keys>
+    <app-keys *ngFor="let key of KeyListRow3" [key]="key"> </app-keys>
+    <app-keys [key]="'delete'"></app-keys>
+  </div>
+  <button (click)="newGame()" id="new-game">New Game</button>
+</div>

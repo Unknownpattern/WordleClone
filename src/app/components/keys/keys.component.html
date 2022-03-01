@@ -1,0 +1,7 @@
+<button
+  (click)="onClick()"
+  [disabled]="keyData.disabled"
+  [ngClass]="classOutput()"
+>
+  {{ keyData.key | uppercase }}
+</button>
