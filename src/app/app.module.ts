@@ -6,6 +6,9 @@ import { KeyboardComponent } from './components/keyboard/keyboard.component';
 import { KeysComponent } from './components/keys/keys.component';
 import { DisplayComponent } from './components/display/display.component';
 import { DisplayCellComponent } from './components/display-cell/display-cell.component';
+import { MessageDisplayComponent } from './components/message-display/message-display.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -13,12 +16,11 @@ import { DisplayCellComponent } from './components/display-cell/display-cell.com
     KeyboardComponent,
     KeysComponent,
     DisplayComponent,
-    DisplayCellComponent
+    DisplayCellComponent,
+    MessageDisplayComponent,
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule, NoopAnimationsModule, MatSnackBarModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -17,6 +17,7 @@ export class GameService {
     null,
     null,
   ];
+  messageSubject = new Subject<string>();
   private Evaluations: BehaviorSubject<TileState[][] | null[]> =
     new BehaviorSubject(this.evaluations);
   private letterState!: LetterState[];
@@ -83,6 +84,7 @@ export class GameService {
     // if the current guessed word is a valid word
     if (!GuessList.includes(currWord) && !WordList.includes(currWord)) {
       console.log('Error, not in word list');
+      this.messageSubject.next('Error, not in word list');
       // TODO: Error message
       return;
     }
@@ -151,6 +153,7 @@ export class GameService {
     this.gameStatus = GameState.Finished;
     this.GameStatus.next(this.gameStatus);
     const gameOverMessage = 'GAME OVER, ' + (won ? 'You Won!' : 'You lost...');
+    this.messageSubject.next(gameOverMessage);
     console.log(gameOverMessage);
   }
 
@@ -188,6 +191,9 @@ export class GameService {
   }
   getStatusObservable(): Observable<LetterState[]> {
     return this.LetterState as Observable<LetterState[]>;
+  }
+  getMessageObservable(): Observable<string> {
+    return this.messageSubject as Observable<string>;
   }
 }
 export enum GameState {
