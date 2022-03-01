@@ -110,6 +110,7 @@ export class GameService {
           return ele === letter;
         });
         secretWordBank.splice(index, 1);
+        this.letterState[letter.charCodeAt(0) - 97].state = TileState.Correct;
         resArr.push(TileState.Correct);
       } else {
         resArr.push(TileState.Absent);
