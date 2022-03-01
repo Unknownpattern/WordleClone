@@ -30,8 +30,8 @@ export class GameService {
     this.NewGame();
   }
   NewGame(): void {
-    //this.secretWord = WordList[Math.floor(Math.random() * WordList.length)];
-    this.secretWord = 'taunt';
+    this.secretWord = WordList[Math.floor(Math.random() * WordList.length)];
+    // this.secretWord = 'taunt';
     console.log(this.secretWord);
     this.rowIndex = 0;
     this.evaluations = [null, null, null, null, null, null];
