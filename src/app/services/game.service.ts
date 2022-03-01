@@ -45,6 +45,7 @@ export class GameService {
     this.LetterState.next(this.letterState);
     this.board.next(this.boardState);
     this.Evaluations.next(this.evaluations);
+    this.gameStatus = GameState.Playing;
   }
 
   AddLetter(key: string): void {
